@@ -2,8 +2,12 @@ package jp.mentor.app.api.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.models.examples.Example
+import jp.mentor.app.api.docs.SampleControllerDoc
+import jp.mentor.app.api.exception.BusinessException
 import jp.mentor.app.api.request.SampleRequest
 import jp.mentor.app.api.response.ErrorResponse
 import jp.mentor.app.api.response.SampleResponse
@@ -27,7 +31,7 @@ class SampleController {
 
     @Operation(
         summary = "Get Sample",
-        description = "getリクエストのサンプルです",
+        description = SampleControllerDoc.Get.DESCRIPTION,
         responses = [
             ApiResponse(
                 responseCode = "200",
@@ -47,13 +51,18 @@ class SampleController {
 
     @Operation(
         summary = "Post Sample",
-        description = "postリクエストのサンプルです",
+        description = SampleControllerDoc.Post.DESCRIPTION,
         requestBody = io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "例のリクエストボディ",
             content = [
                 Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = Schema(implementation = SampleRequest::class),
+                    examples = [
+                        ExampleObject(
+                            value = SampleControllerDoc.Post.REQUEST_EXAMPLE
+                        )
+                    ]
                 )
             ]
         ),
@@ -64,7 +73,12 @@ class SampleController {
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = Schema(implementation = SampleResponse::class)
+                        schema = Schema(implementation = SampleResponse::class),
+                        examples = [
+                            ExampleObject(
+                                value = SampleControllerDoc.Post.RESPONSE_EXAMPLE
+                            )
+                        ]
                     )
                 ]
             ),
@@ -84,6 +98,7 @@ class SampleController {
     fun sample(@RequestBody request: SampleRequest): ResponseEntity<SampleResponse> {
         val name = request.name ?: "Unknown"
         val age = request.age ?: 0
+//        throw BusinessException(message = "エラーだよ", cause = null);
         return ResponseEntity.ok(
             SampleResponse(
                 message = "$name($age)",
