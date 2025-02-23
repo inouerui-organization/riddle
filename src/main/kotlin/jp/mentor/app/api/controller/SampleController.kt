@@ -7,9 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
 import jp.mentor.app.api.docs.SampleControllerDoc
+import jp.mentor.app.api.dto.SampleDto
+import jp.mentor.app.api.exception.BusinessException
 import jp.mentor.app.api.request.SampleRequest
 import jp.mentor.app.api.response.ErrorResponse
 import jp.mentor.app.api.response.SampleResponse
+import jp.mentor.app.service.SampleService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -22,7 +25,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/")
-class SampleController {
+class SampleController(
+    private val sampleService: SampleService,
+) {
 
     @Operation(
         summary = "Get Sample",
@@ -39,9 +44,10 @@ class SampleController {
             )
         ]
     )
-    @GetMapping("/sample")
-    fun getSample(): ResponseEntity<String> {
-        return ResponseEntity.ok("成功です")
+    @GetMapping("/sample/{id}")
+    fun getSample(@PathVariable id: Int): ResponseEntity<SampleDto> {
+        val sampleDto = sampleService.getSample(id) ?: throw BusinessException("レコードがありません")
+        return ResponseEntity.ok(sampleDto)
     }
 
     @Operation(
@@ -91,13 +97,16 @@ class SampleController {
     )
     @PostMapping("/sample")
     fun sample(@RequestBody @Valid request: SampleRequest): ResponseEntity<SampleResponse> {
-        val name = request.name ?: "Unknown"
-        val age = request.age ?: 0
-//        throw BusinessException(message = "エラーだよ", cause = null);
+        var sampleDto = SampleDto(
+            name = request.name,
+            mail = request.mail,
+            age = request.age
+        )
+        sampleDto = sampleService.createSample(sampleDto)
         return ResponseEntity.ok(
             SampleResponse(
-                message = "$name($age)",
-                payload = listOf("aaa", "bbb")
+                message = "保存しました",
+                payload = listOf(sampleDto)
             )
         )
     }
