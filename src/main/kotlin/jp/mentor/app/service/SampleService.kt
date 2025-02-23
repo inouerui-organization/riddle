@@ -1,6 +1,7 @@
 package jp.mentor.app.service
 
 import jakarta.transaction.Transactional
+import jp.mentor.app.api.exception.BusinessException
 import jp.mentor.app.domain.model.Sample
 import jp.mentor.app.domain.repositoty.SampleRepository
 import org.springframework.stereotype.Service
@@ -20,7 +21,9 @@ class SampleService(
         return sampleRepository.save(sample)
     }
 
-    fun getSample(id: Int): Sample? {
-        return sampleRepository.findById(id).orElse(null)
+    fun getSample(id: Int): Sample {
+        return sampleRepository.findById(id)
+            .orElse(null)
+            ?: throw BusinessException("レコードがありません")
     }
 }

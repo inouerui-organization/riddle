@@ -47,7 +47,6 @@ class SampleController(
     @GetMapping("/sample/{id}")
     fun getSample(@PathVariable id: Int): ResponseEntity<SampleResponse> {
         val sample = sampleService.getSample(id)
-            ?: throw BusinessException("レコードがありません")
 
         return ResponseEntity.ok(SampleResponse.from(sample))
     }

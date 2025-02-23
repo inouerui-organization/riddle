@@ -22,10 +22,15 @@ class SampleControllerDoc {
             const val RESPONSE_EXAMPLE =
                 """
                 {
-                  "message": "成功です。",
-                  "payload": {
-                    "aaa": "bbb"
-                  }
+                  "message": "作成されました",
+                  "payload": [
+                    {
+                      "id": 202,
+                      "name": "山田",
+                      "mail": "sample@apple.com",
+                      "age": 38
+                    }
+                  ]
                 }
                 """
         }
