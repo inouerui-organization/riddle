@@ -1,6 +1,5 @@
 package jp.mentor.app.service
 
-import jp.mentor.app.api.dto.SampleDto
 import jp.mentor.app.domain.model.Sample
 import jp.mentor.app.domain.repositoty.SampleRepository
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -20,14 +19,12 @@ class SampleServiceTest {
     @InjectMocks
     private lateinit var sampleService: SampleService
 
-    private lateinit var sampleDto: SampleDto
     private lateinit var sample: Sample
 
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         // テスト用のサンプルデータの初期化
-        sampleDto = SampleDto(id = null, name = "山田", mail = "yamada@yamada", age = 32)
         sample = Sample(id = 1, name = "山田", mail = "yamada@yamada", age = 32)
     }
 
@@ -35,7 +32,8 @@ class SampleServiceTest {
     fun test1() {
         whenever(sampleRepository.save(org.mockito.kotlin.any())).thenReturn(sample)
 
-        val result = sampleService.createSample(sampleDto)
+        val requestSample = Sample(name = "山田", mail = "yamada@yamada", age = 32)
+        val result = sampleService.createSample(requestSample)
 
         assertNotNull(result.id)
         assertEquals(result.name, "山田")

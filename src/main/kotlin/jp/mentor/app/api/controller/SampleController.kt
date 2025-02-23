@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
 import jp.mentor.app.api.docs.SampleControllerDoc
-import jp.mentor.app.api.dto.SampleDto
 import jp.mentor.app.api.exception.BusinessException
 import jp.mentor.app.api.request.SampleRequest
+import jp.mentor.app.api.response.BaseResponse
 import jp.mentor.app.api.response.ErrorResponse
 import jp.mentor.app.api.response.SampleResponse
 import jp.mentor.app.service.SampleService
@@ -45,9 +45,11 @@ class SampleController(
         ]
     )
     @GetMapping("/sample/{id}")
-    fun getSample(@PathVariable id: Int): ResponseEntity<SampleDto> {
-        val sampleDto = sampleService.getSample(id) ?: throw BusinessException("レコードがありません")
-        return ResponseEntity.ok(sampleDto)
+    fun getSample(@PathVariable id: Int): ResponseEntity<SampleResponse> {
+        val sample = sampleService.getSample(id)
+            ?: throw BusinessException("レコードがありません")
+
+        return ResponseEntity.ok(SampleResponse.from(sample))
     }
 
     @Operation(
@@ -96,17 +98,14 @@ class SampleController(
         ]
     )
     @PostMapping("/sample")
-    fun sample(@RequestBody @Valid request: SampleRequest): ResponseEntity<SampleResponse> {
-        var sampleDto = SampleDto(
-            name = request.name,
-            mail = request.mail,
-            age = request.age
-        )
-        sampleDto = sampleService.createSample(sampleDto)
+    fun sample(@RequestBody @Valid request: SampleRequest): ResponseEntity<BaseResponse> {
+        val sample = sampleService.createSample(request.toDomain())
         return ResponseEntity.ok(
-            SampleResponse(
-                message = "保存しました",
-                payload = listOf(sampleDto)
+            BaseResponse(
+                message = "作成されました",
+                payload = listOf(
+                    SampleResponse.from(sample)
+                )
             )
         )
     }
