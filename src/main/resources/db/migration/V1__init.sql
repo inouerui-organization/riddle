@@ -1,4 +1,6 @@
-CREATE TABLE users (
+CREATE TABLE samples (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    mail VARCHAR(255),
+    age INTEGER
 );
