@@ -1,9 +1,6 @@
 package jp.mentor.app.domain.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 /**
  * サンプルのエンティティ.
@@ -11,11 +8,15 @@ import jakarta.persistence.Id
  * @author rui.inoue
  */
 @Entity
+@Table(name = "samples")
 data class Sample(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null,
+    @Column(name = "name", nullable = false)
     val name: String,
+    @Column(name = "mail")
     val mail: String? = null,
+    @Column(name = "age")
     val age: Int? = null
 )
