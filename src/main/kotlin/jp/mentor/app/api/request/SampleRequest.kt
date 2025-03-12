@@ -1,11 +1,6 @@
 package jp.mentor.app.api.request
 
-import jakarta.validation.constraints.AssertTrue
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotBlank
-import jp.mentor.app.domain.model.Sample
+import jakarta.validation.constraints.*
 
 /**
  * サンプル用のリクエストデータクラス
@@ -27,6 +22,4 @@ data class SampleRequest(
     fun isMailOrAge(): Boolean {
         return !mail.isNullOrBlank() || age != null;
     }
-
-    fun toDomain() = Sample(name = name, mail = mail, age = age)
 }

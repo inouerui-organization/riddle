@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS app.samples (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    mail VARCHAR(255),
+    age INTEGER
+);

@@ -1,29 +1,25 @@
-package jp.mentor.app.service
+package jp.mentor.app.application.usecase.sample
 
 import jakarta.transaction.Transactional
 import jp.mentor.app.api.exception.BusinessException
-import jp.mentor.app.domain.model.Sample
+import jp.mentor.app.application.commnd.SampleResult
 import jp.mentor.app.domain.repositoty.SampleRepository
 import org.springframework.stereotype.Service
 
 /**
- * サンプルのサービス.
- *
+ * sampleを取得するユースケース.
  * @author rui.inoue
  */
 @Service
-class SampleService(
+@Transactional
+class GetSampleUseCase(
     private val sampleRepository: SampleRepository
 ) {
 
-    @Transactional
-    fun createSample(sample: Sample): Sample {
-        return sampleRepository.save(sample)
-    }
-
-    fun getSample(id: Int): Sample {
-        return sampleRepository.findById(id)
+    fun execute(id: Int): SampleResult {
+        val sample = sampleRepository.findById(id)
             .orElse(null)
             ?: throw BusinessException("レコードがありません")
+        return SampleResult(id = id, name = sample.name, email = sample.mail, age = sample.age)
     }
 }
