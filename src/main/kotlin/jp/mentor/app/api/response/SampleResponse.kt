@@ -1,6 +1,6 @@
 package jp.mentor.app.api.response
 
-import jp.mentor.app.domain.model.Sample
+import jp.mentor.app.application.commnd.SampleResult
 
 /**
  * サンプル用のレスポンスデータクラス.
@@ -14,6 +14,11 @@ data class SampleResponse(
     val age: Int?
 ) {
     companion object {
-        fun from(sample: Sample) = SampleResponse(sample.id!!, sample.name, sample.mail, sample.age)
+        fun from(result: SampleResult) = SampleResponse(
+            result.sample.id!!,
+            result.sample.name,
+            result.sample.mail?.value,
+            result.sample.age?.value
+        )
     }
 }

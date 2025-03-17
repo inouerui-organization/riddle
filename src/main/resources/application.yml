@@ -12,6 +12,8 @@ spring:
   flyway:
     enabled: false
     location: classpath:db/migration
+    default-schema: app
+    schemas: app
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
