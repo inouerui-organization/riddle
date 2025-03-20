@@ -1,4 +1,4 @@
-package jp.mentor.app.api.exception
+package jp.mentor.app.exception
 
 class BusinessException(
     message: String? = null,

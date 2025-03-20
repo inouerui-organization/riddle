@@ -17,6 +17,6 @@ class CreateSampleUseCase(
 ) {
     fun execute(command: SampleCommand): SampleResult {
         val sample = sampleRepository.save(command.sample)
-        return SampleResult(id = sample.id ?: -1, name = sample.name, email = sample.mail, sample.age)
+        return SampleResult(id = sample.id ?: -1, name = sample.name, email = sample.mail?.value, age = sample.age?.value)
     }
 }

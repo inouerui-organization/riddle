@@ -15,10 +15,10 @@ data class SampleResponse(
 ) {
     companion object {
         fun from(result: SampleResult) = SampleResponse(
-            result.sample.id!!,
-            result.sample.name,
-            result.sample.mail?.value,
-            result.sample.age?.value
+            result.id,
+            result.name,
+            result.email,
+            result.age
         )
     }
 }

@@ -1,6 +1,6 @@
 package jp.mentor.app.application.usecase.sample
 
-import jp.mentor.app.api.exception.BusinessException
+import jp.mentor.app.exception.BusinessException
 import jp.mentor.app.domain.model.Sample
 import jp.mentor.app.domain.`object`.Age
 import jp.mentor.app.domain.`object`.Email
@@ -41,10 +41,10 @@ class GetSampleUseCaseTest {
         val result = getSampleUseCase.execute(1)
 
         assertNotNull(result)
-        assertEquals(1, result.sample.id)
-        assertEquals("山田", result.sample.name)
-        assertEquals("yamada@docomo", result.sample.mail?.value)
-        assertEquals(10, result.sample.age?.value)
+        assertEquals(1, result.id)
+        assertEquals("山田", result.name)
+        assertEquals("yamada@docomo", result.email)
+        assertEquals(10, result.age)
     }
 
     @Test
