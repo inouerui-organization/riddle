@@ -1,5 +1,9 @@
 # アプリ開発
 
+## Overview
+
+- 謎解きのプラットフォームのwebアプリ
+
 ## 技術スタック
 
 | 技術          | バージョン            |
@@ -7,6 +11,69 @@
 | jdk         | amazon-correto21 |
 | postgres    | 17               |
 | Spring Boot | 3.4.3            |
+
+## ディレクトリ構成
+
+### 全体構成
+
+```
+app
+ ├─docs               # アプリのドキュメント群
+ ├─src                # ソースコード
+ ├─docker-compose.yml # DBのコンテナ設定
+ └─README             # 本ドキュメント
+```
+
+### ソースコード構成
+
+```
+src
+ └─main
+    ├─kotlin/jp/mentor/app
+    │   ├─api
+    │   │  ├─controller   # コントローラ群
+    │   │  ├─docs         # コントローラのドキュメント群
+    │   │  ├─exception    # 例外群
+    │   │  ├─request      # リクエスト群
+    │   │  └─response     # レスポンス群
+    │   │
+    │   ├─application
+    │   │  ├─command      # コマンド群
+    │   │  └─usecase      # ユースケース群
+    │   │
+    │   ├─domain
+    │   │  ├─model        # モデル群
+    │   │  ├─repository   # ドメインのリポジトリ群
+    │   │  ├─service      # ドメインサービス群
+    │   │  └─value        # 値オブジェクト群
+    │   │
+    │   └─infra           # 外部アクセス群
+    │
+    └─resources
+        ├─db/migration    # マイグレーション
+        └─application.yml # アプリケーションの設定ファイル
+```
+
+## アーキテクチャ図
+
+DDDに準拠したアーキテクチャを採用しています。
+
+```mermaid
+graph TD;
+    Controller["🖥️ API 層(APIエンドポイント)"] -->|呼び出し| UseCase["⚙️ UseCase 層(ビジネスロジック)"]
+    UseCase -->|呼び出し| Repository["📦 Repository 層(DBアクセス)"]
+    Repository -->|操作| Database["🗄️ Database(PostgreSQL)"]
+
+    subgraph ドメイン層
+        Entity["📄 Entity(ドメインモデル)"]
+        ValueObject["📌 Value Object(値オブジェクト)"]
+        DomainService["🔧 Domain Service(ドメインロジック)"]
+    end
+
+    UseCase -->|利用| Entity
+    UseCase -->|利用| ValueObject
+    UseCase -->|利用| DomainService
+```
 
 ## 環境構築
 
@@ -19,7 +86,7 @@
 ## データベースへのアクセス
 
 - ローカルからのアクセス（ローカルにpsqlコマンドが入っている前提）
-    - `psql -h localhost -U postgres -d app -p 5433`
+    - `psql -U postgres -d app -p 5433`
 - コンテナ内でアクセス
     - `docker exec -it postgres_container bash`でコンテナ内に入る
     - `psql -U postgres -d app -p 5432`でデータベース内に入る
