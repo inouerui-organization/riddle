@@ -1,9 +1,10 @@
 package jp.mentor.app.application.usecase.sample
 
 import jakarta.transaction.Transactional
-import jp.mentor.app.exception.BusinessException
 import jp.mentor.app.application.commnd.SampleResult
 import jp.mentor.app.domain.repositoty.SampleRepository
+import jp.mentor.app.domain.value.SampleId
+import jp.mentor.app.exception.BusinessException
 import org.springframework.stereotype.Service
 
 /**
@@ -16,10 +17,11 @@ class GetSampleUseCase(
     private val sampleRepository: SampleRepository
 ) {
 
-    fun execute(id: Int): SampleResult {
-        val sample = sampleRepository.findById(id)
+    fun execute(id: String): SampleResult {
+        val sampleId = SampleId.fromString(id)
+        val sample = sampleRepository.findById(sampleId.value)
             .orElse(null)
             ?: throw BusinessException("レコードがありません")
-        return SampleResult(id = id, name = sample.name, email = sample.mail?.value, age = sample.age?.value)
+        return SampleResult(id = sampleId.value, name = sample.name, email = sample.mail?.value, age = sample.age?.value)
     }
 }

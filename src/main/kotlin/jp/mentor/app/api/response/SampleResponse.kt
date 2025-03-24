@@ -1,6 +1,7 @@
 package jp.mentor.app.api.response
 
 import jp.mentor.app.application.commnd.SampleResult
+import java.util.*
 
 /**
  * サンプル用のレスポンスデータクラス.
@@ -8,7 +9,7 @@ import jp.mentor.app.application.commnd.SampleResult
  * @author rui.inoue
  */
 data class SampleResponse(
-    val id: Int,
+    val id: UUID?,
     val name: String,
     val mail: String?,
     val age: Int?

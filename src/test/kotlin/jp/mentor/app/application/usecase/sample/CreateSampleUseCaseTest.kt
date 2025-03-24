@@ -12,6 +12,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.whenever
+import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
@@ -25,12 +26,14 @@ class CreateSampleUseCaseTest {
 
     private lateinit var sampleCommandField: Sample
     private lateinit var sampleResult: Sample
+    private lateinit var id: UUID
 
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.openMocks(this)
+        id = UUID.randomUUID()
         sampleCommandField = Sample(id = null, name = "山田", mail = Email("yamada@docomo"), age = Age(10))
-        sampleResult = Sample(id = 1, name = "山田", mail = Email("yamada@docomo"), age = Age(10))
+        sampleResult = Sample(id = id, name = "山田", mail = Email("yamada@docomo"), age = Age(10))
     }
 
     @Test
@@ -42,7 +45,7 @@ class CreateSampleUseCaseTest {
         val result = createSampleUseCase.execute(command)
 
         assertNotNull(result)
-        assertEquals(1, result.id)
+        assertEquals(id, result.id)
         assertEquals("山田", result.name)
         assertEquals("yamada@docomo", result.email)
         assertEquals(10, result.age)

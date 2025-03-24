@@ -10,5 +10,5 @@ import java.util.*
  */
 interface SampleRepository {
     fun save(sample: Sample): Sample
-    fun findById(id: Int): Optional<Sample>
+    fun findById(id: UUID): Optional<Sample>
 }

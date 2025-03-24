@@ -26,11 +26,13 @@ class GetSampleUseCaseTest {
     private lateinit var getSampleUseCase: GetSampleUseCase
 
     private lateinit var sampleResult: Sample
+    private lateinit var id: UUID
 
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        sampleResult = Sample(id = 1, name = "山田", mail = Email("yamada@docomo"), age = Age(10))
+        id = UUID.randomUUID()
+        sampleResult = Sample(id = id, name = "山田", mail = Email("yamada@docomo"), age = Age(10))
     }
 
     @Test
@@ -38,10 +40,10 @@ class GetSampleUseCaseTest {
     fun test1() {
         whenever(sampleRepository.findById(org.mockito.kotlin.any())).thenReturn(Optional.of(sampleResult))
 
-        val result = getSampleUseCase.execute(1)
+        val result = getSampleUseCase.execute(id.toString())
 
         assertNotNull(result)
-        assertEquals(1, result.id)
+        assertEquals(id, result.id)
         assertEquals("山田", result.name)
         assertEquals("yamada@docomo", result.email)
         assertEquals(10, result.age)
@@ -53,7 +55,7 @@ class GetSampleUseCaseTest {
         whenever(sampleRepository.findById(org.mockito.kotlin.any())).thenReturn(Optional.empty())
 
         val exception = assertThrows<BusinessException> {
-            getSampleUseCase.execute(1)
+            getSampleUseCase.execute(id.toString())
         }
 
         assertEquals("レコードがありません", exception.message)

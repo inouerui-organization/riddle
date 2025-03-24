@@ -46,7 +46,7 @@ class SampleController(
         ]
     )
     @GetMapping("/sample/{id}")
-    fun getSample(@PathVariable id: Int): ResponseEntity<SampleResponse> {
+    fun getSample(@PathVariable id: String): ResponseEntity<SampleResponse> {
         val sample = getSampleUseCase.execute(id)
 
         return ResponseEntity.ok(SampleResponse.from(sample))
