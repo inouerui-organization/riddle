@@ -2,7 +2,7 @@ package jp.mentor.app.infra.converter
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import jp.mentor.app.domain.`object`.Age
+import jp.mentor.app.domain.value.Age
 
 /**
  * Ageオブジェクトのコンバーター.

@@ -1,4 +1,4 @@
-package jp.mentor.app.domain.`object`
+package jp.mentor.app.domain.value
 
 /**
  * 年齢の値オブジェクト.
