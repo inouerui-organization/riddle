@@ -42,9 +42,9 @@ class CreateSampleUseCaseTest {
         val result = createSampleUseCase.execute(command)
 
         assertNotNull(result)
-        assertEquals(1, result.sample.id)
-        assertEquals("山田", result.sample.name)
-        assertEquals("yamada@docomo", result.sample.mail?.value)
-        assertEquals(10, result.sample.age?.value)
+        assertEquals(1, result.id)
+        assertEquals("山田", result.name)
+        assertEquals("yamada@docomo", result.email)
+        assertEquals(10, result.age)
     }
 }

@@ -1,4 +1,4 @@
-package jp.mentor.app.api.exception
+package jp.mentor.app.exception
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content

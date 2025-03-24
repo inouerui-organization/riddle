@@ -1,5 +1,6 @@
 package jp.mentor.app.application.commnd
 
+
 import jp.mentor.app.domain.model.Sample
 import jp.mentor.app.domain.value.Age
 import jp.mentor.app.domain.value.Email
@@ -9,10 +10,10 @@ import jp.mentor.app.domain.value.Email
  *
  * @author rui.inoue
  */
+
 data class SampleResult(
-    val sample: Sample
-) {
-    constructor(id: Int, name: String, email: Email?, age: Age?): this(
-        Sample(id = id, name = name, mail = email, age = age)
-    )
-}
+    val id: Int,
+    val name: String,
+    val email: String?,
+    val age: Int?
+)
