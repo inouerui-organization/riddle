@@ -1,9 +1,14 @@
 package jp.mentor.app.application.commnd
 
 import jp.mentor.app.domain.model.Sample
-import jp.mentor.app.domain.`object`.Age
-import jp.mentor.app.domain.`object`.Email
+import jp.mentor.app.domain.value.Age
+import jp.mentor.app.domain.value.Email
 
+/**
+ * サンプルエンティティの作成を目的としたコマンドオブジェクト.
+ *
+ * @author rui.inoue
+ */
 data class SampleCommand(
     val sample: Sample
 ) {

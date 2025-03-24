@@ -2,8 +2,8 @@ package jp.mentor.app.application.usecase.sample
 
 import jp.mentor.app.exception.BusinessException
 import jp.mentor.app.domain.model.Sample
-import jp.mentor.app.domain.`object`.Age
-import jp.mentor.app.domain.`object`.Email
+import jp.mentor.app.domain.value.Age
+import jp.mentor.app.domain.value.Email
 import jp.mentor.app.domain.repositoty.SampleRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

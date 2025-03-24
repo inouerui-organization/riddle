@@ -1,8 +1,8 @@
 package jp.mentor.app.domain.model
 
 import jakarta.persistence.*
-import jp.mentor.app.domain.`object`.Age
-import jp.mentor.app.domain.`object`.Email
+import jp.mentor.app.domain.value.Age
+import jp.mentor.app.domain.value.Email
 
 /**
  * サンプルのエンティティ.
