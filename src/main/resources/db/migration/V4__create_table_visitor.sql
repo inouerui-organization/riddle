@@ -1,0 +1,4 @@
+CREATE TABLE visitors (
+    id UUID PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
