@@ -1,4 +1,4 @@
-CREATE TABLE puzzles (
+CREATE TABLE app.puzzles (
     id UUID PRIMARY KEY,
     puzzle JSONB NOT NULL,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,

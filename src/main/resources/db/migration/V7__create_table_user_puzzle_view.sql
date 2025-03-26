@@ -1,4 +1,4 @@
-CREATE TABLE user_puzzle_views (
+CREATE TABLE app.user_puzzle_views (
     puzzle_id UUID NOT NULL REFERENCES puzzles(id) ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     last_viewed_at TIMESTAMP NOT NULL,
