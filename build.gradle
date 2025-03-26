@@ -40,6 +40,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.flywaydb:flyway-core:11.3.4'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'org.flywaydb:flyway-database-postgresql:11.3.4'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
