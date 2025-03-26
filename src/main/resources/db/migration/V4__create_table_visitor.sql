@@ -1,4 +1,4 @@
-CREATE TABLE app.visitors (
+CREATE TABLE IF NOT EXISTS app.visitors (
     id UUID PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
