@@ -110,3 +110,9 @@ graph TD;
   - `V{バージョン番号}__{説明}.sql`
 - flywayは実行済みのsqlファイルは変更しても動きません。新しいsqlファイルを作成する必要があります。
 - `./gradlew flywayClean`というコマンドでDB内の全てのテーブルとデータが削除されます。これにより、実行済みのsqlファイルも未実行ファイルという扱いに戻ります。
+
+## エンドポイント
+
+### Swagger UI
+
+- [Swagger UI](http://localhost:9090/manage/actuator/swagger-ui/index.html)

@@ -18,13 +18,17 @@ spring:
 
 # swaggerの設定
 springdoc:
+  api-docs:
+    path: /api-docs
   swagger-ui:
-    path: /swagger-ui.html
+    path: /swagger-ui
+  use-management-port: true
 
 # actuatorの設定
 management:
   server:
     port: 9090
+    base-path: /manage
   endpoints:
     web:
       exposure:
