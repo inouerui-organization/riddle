@@ -1,52 +1,27 @@
 name: Gradle Tests
 
+# プルリクエストが作成または更新された時にトリガー
 on:
   pull_request:
-    types: [opened, synchronize]  # プルリクエストが作成または更新された時にトリガー
+    types: [opened, synchronize]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      # プロジェクトをGitHubからチェックアウト
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # JDK 21 (Corretto)をセットアップ
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'corretto'
-
-      # Gradleの依存関係をキャッシュして、ビルド時間を短縮
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      # Gradleのビルドを実行 (testタスク)
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
-
+  # 通常のJUnitなどのテストを実行するジョブ
   test_task:
     runs-on: ubuntu-latest
     steps:
-      # プロジェクトをGitHubからチェックアウト
+      # GitHubのリポジトリからコードをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # JDK 21 (Corretto)をセットアップ
+      # JDK 21（Amazon Corretto）をセットアップ
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'corretto'
 
-      # Gradleの依存関係をキャッシュして、ビルド時間を短縮
+      # Gradleの依存関係をキャッシュしてビルド高速化
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:
@@ -55,25 +30,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Gradleのテストタスクを実行 (testタスク)
+      # Gradleの test タスクを実行
       - name: Run Gradle tests
         run: ./gradlew test --no-daemon
 
+  # ArchUnitによるアーキテクチャテストを実行するジョブ
   archunit_test:
     runs-on: ubuntu-latest
     steps:
-      # プロジェクトをGitHubからチェックアウト
+      # コードをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # JDK 21 (Corretto)をセットアップ
+      # JDK 21 をセットアップ
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'corretto'
 
-      # Gradleの依存関係をキャッシュして、ビルド時間を短縮
+      # Gradleのキャッシュ
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:
@@ -82,6 +58,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # ArchUnitテストを実行
+      # Gradleの archunitTest タスクを実行
       - name: Run ArchUnit tests
         run: ./gradlew archunitTest --no-daemon
