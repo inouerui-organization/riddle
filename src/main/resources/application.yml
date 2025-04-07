@@ -1,3 +1,4 @@
+# springの基本設定
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/app
@@ -14,6 +15,36 @@ spring:
     location: classpath:db/migration
     default-schema: app
     schemas: app
+
+# swaggerの設定
 springdoc:
+  api-docs:
+    path: /api-docs
   swagger-ui:
-    path: /swagger-ui.html
+    path: /swagger-ui
+  use-management-port: true
+
+# actuatorの設定
+management:
+  server:
+    port: 9090
+    base-path: /manage
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: "always"
+    shutdown:
+      enabled: false
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+    db:
+      enabled: true
+    diskspace:
+      enabled: true
+    ping:
+      enabled: true
