@@ -1,4 +1,4 @@
-package jp.mentor.app
+package jp.mentor.app.archunit
 
 import com.tngtech.archunit.core.domain.JavaClasses
 import com.tngtech.archunit.core.importer.ImportOption

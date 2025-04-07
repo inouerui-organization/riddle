@@ -63,6 +63,7 @@ allOpen {
 }
 
 tasks.named('test') {
+	exclude("**/archunit/ArchUnitTest.class")
 	useJUnitPlatform()
 }
 
@@ -72,4 +73,11 @@ flyway {
 	password = 'postgres'
 	schemas = ['public']
 	cleanDisabled = false
+}
+
+tasks.register("archunitTest", Test) {
+	// ArchUnit のテストクラスだけを対象にする
+	include("**/archunit/ArchUnitTest.class")
+
+	useJUnitPlatform()
 }
